@@ -1,32 +1,56 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int n=prerequisites.length;
-        int[] indegree=new int[numCourses];
-        int[] ans=new int[numCourses];
-        for(int i=0;i<n;i++){
-            indegree[prerequisites[i][0]]++;
+
+        // Create adjacency list
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        for (int i = 0; i < numCourses; i++) {
+            adj.add(new ArrayList<>());
         }
-        Queue<Integer> q=new LinkedList<>();
-        for(int i=0;i<numCourses;i++){
-            if(indegree[i]==0)q.offer(i);
+
+        // Compute indegree and build graph
+        int[] indegree = new int[numCourses];
+
+        for (int[] edge : prerequisites) {
+            int course = edge[0];
+            int prerequisite = edge[1];
+
+            adj.get(prerequisite).add(course);
+            indegree[course]++;
         }
-        int k=0;
-        while(!q.isEmpty()){
-            int node=q.poll();
-            ans[k]=node;
-            for(int i=0;i<n;i++){
-                if(prerequisites[i][1]==node){
-                int neighbor = prerequisites[i][0];
+
+        Queue<Integer> queue = new LinkedList<>();
+
+        // Add all nodes with indegree 0
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        int[] ans = new int[numCourses];
+        int index = 0;
+
+        while (!queue.isEmpty()) {
+
+            int node = queue.poll();
+            ans[index++] = node;
+
+            for (int neighbor : adj.get(node)) {
+
                 indegree[neighbor]--;
 
-                    if (indegree[neighbor] == 0) {
-                    q.offer(neighbor);
-                    }
+                if (indegree[neighbor] == 0) {
+                    queue.offer(neighbor);
                 }
             }
-            k++;
         }
-        if (k != numCourses) return new int[0];
-    return ans;
+
+        // Cycle exists
+        if (index != numCourses) {
+            return new int[0];
+        }
+
+        return ans;
     }
 }
