@@ -9,14 +9,19 @@ class Solution {
         }
         Arrays.sort(pre);
         long ans=0;
-        for(int i=0,j=n-1;i<j;i++,j--){
-            ans+=gcd(pre[i],pre[j]);
+        int l=0,r=n-1;
+        while(l<r) {
+            ans+=gcd(pre[l++],pre[r--]);
         }
         return ans;
         
     }
     int gcd(int a, int b){
-        if(b==0)return a;
-        return gcd(b,a%b);
+        while(b != 0) {
+            int temp = a % b;
+            a = b;
+            b = temp;
+        }
+        return a;
     }
 }
