@@ -13,9 +13,9 @@ class Solution {
             }
         }
 
-        List<List<Integer>> res=new ArrayList<>();
+        List<List<Integer>> res=new ArrayList<>(m);
         for (int i = 0; i < m; i++) {
-            List<Integer> list = new ArrayList<>();
+            List<Integer> list = new ArrayList<>(n);
             for (int j = 0; j < n; j++) {
                 list.add(ans[i][j]);
             }
