@@ -14,9 +14,8 @@ class Solution {
         }
         boolean[] seen = new boolean[10];
        for(int i=0;i<digits.length;i++){
-        if(used[i])continue;
+        if(used[i]||seen[digits[i]])continue;
         if(idx==0&&digits[i]==0)continue;
-        if (seen[digits[i]]) continue;
         if(idx==2&& digits[i]%2==1)continue;
         used[i]=true;
         seen[digits[i]] = true;
