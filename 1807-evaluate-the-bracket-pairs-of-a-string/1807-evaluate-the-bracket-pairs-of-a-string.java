@@ -14,7 +14,7 @@ class Solution {
                     j++;
                 }
                 String temp=s.substring(i+1,j);
-                ans.append(map.containsKey(temp)?map.get(temp):"?");
+                ans.append(map.getOrDefault(temp,"?"));
                 i=j;
             }else{
                 ans.append(s.charAt(i));
