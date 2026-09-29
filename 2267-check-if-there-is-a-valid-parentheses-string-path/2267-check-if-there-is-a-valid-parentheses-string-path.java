@@ -4,6 +4,9 @@ class Solution {
     public boolean hasValidPath(char[][] grid) {
         m=grid.length;
         n=grid[0].length;
+        if ((m + n - 1) % 2 != 0) return false;
+        if (grid[0][0] == ')' || grid[m-1][n-1] == '(') return false;
+        
         dp=new Boolean[m][n][m+n];
         return dfs(grid,0,0,0);  
     }
